@@ -18,6 +18,7 @@ public class Router extends RouteBuilder {
     from(DIRECT_URI)
       .log("Body contains \"${body}\"")
       .log("Searching twitter for \"${body}\"!")
+      .throttle(MAX_REQUEST_COUNT).timePeriodMillis(TIME_PERIOD)
       .choice()
       .when(body().regex(MAX_REGEX))
         .process(new SeachProcessor())
